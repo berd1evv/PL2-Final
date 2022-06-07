@@ -14,7 +14,6 @@ class ViewController: UIViewController {
         let field = UITextField()
         field.placeholder = "Enter the link of the photo"
         field.textAlignment = .center
-        field.frame = CGRect(x: 50, y: 90, width: 350, height: 40)
         field.translatesAutoresizingMaskIntoConstraints = false
         field.layer.borderWidth = 1
         field.clipsToBounds = true
@@ -26,7 +25,6 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Download", for: .normal)
         button.addTarget(self, action: #selector(didTapDownloadButton), for: .touchUpInside)
-        button.frame = CGRect(x: 140, y: 140, width: 90, height: 40)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .black
         return button
@@ -34,16 +32,15 @@ class ViewController: UIViewController {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "house")
-        imageView.frame = CGRect(x: 0, y: 0, width: 600, height: 300)
+        imageView.image = UIImage(systemName: "photo")
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    let imageDownload: UIButton = {
+    let saveToGallery: UIButton = {
         let button = UIButton()
-        button.setTitle("Download an Image", for: .normal)
+        button.setTitle("Save to Gallery", for: .normal)
         button.addTarget(self, action: #selector(didTapDownloadImageButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .black
@@ -57,7 +54,7 @@ class ViewController: UIViewController {
         view.addSubview(imageView)
         view.addSubview(textField)
         view.addSubview(downloadButton)
-        view.addSubview(imageDownload)
+        view.addSubview(saveToGallery)
         setUpConstraints()
         
     }
@@ -70,7 +67,7 @@ class ViewController: UIViewController {
         let imageData = UIImage.pngData(imageView.image!)
         let compressedImage = UIImage(data: imageData()!)
         UIImageWriteToSavedPhotosAlbum(compressedImage!, nil, nil, nil)
-        
+                
         let alert = UIAlertController(title: "Saved", message: "Your image has been saved", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(okAction)
@@ -101,11 +98,11 @@ class ViewController: UIViewController {
             
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 600),
+            imageView.widthAnchor.constraint(equalToConstant: 400),
             imageView.heightAnchor.constraint(equalToConstant: 300),
             
-            imageDownload.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageDownload.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30)
+            saveToGallery.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveToGallery.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30)
         ])
     }
 
